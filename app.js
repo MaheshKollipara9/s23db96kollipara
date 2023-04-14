@@ -26,7 +26,7 @@ var usersRouter = require('./routes/users');
 var parrotRouter = require('./routes/parrot');
 var boardRouter = require('./routes/board');
 var selectorRouter = require('./routes/selector');
-var resourceRouter = require('./rutes/resource');
+var resourceRouter = require('./routes/resource');
 
 var app = express();
 
