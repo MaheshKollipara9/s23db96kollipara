@@ -26,3 +26,15 @@ res.send('NOT IMPLEMENTED: parrot delete DELETE ' + req.params.id);
 exports.parrot_update_put = function(req, res) {
 res.send('NOT IMPLEMENTED: parrot update PUT' + req.params.id);
 };
+
+// Handle a show all view
+exports.parrot_view_all_Page = async function(req, res) {
+    try{
+    theparrots = await parrot.find();
+    res.render('parrot', { title: 'parrot Search Results', results: theparrots });
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+    };
