@@ -1,8 +1,15 @@
 var parrot = require('../models/parrot');
-// List of all parrots
-exports.parrot_list = function(req, res) {
-res.send('NOT IMPLEMENTED: parrot list');
-};
+// List of all parrot
+exports.parrot_list = async function(req, res) {
+    try{
+    parrot = await parrot.find();
+    res.send(parrot);
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+    };
 // for a specific parrot.
 exports.parrot_detail = function(req, res) {
 res.send('NOT IMPLEMENTED: parrot detail: ' + req.params.id);

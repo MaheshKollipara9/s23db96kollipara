@@ -65,7 +65,7 @@ async function recreateDB(){
   console.log("Second object saved")
   });
  
- let instance3 = new parrot({parrot_color:"Red",parrot_length:"65p",parrot_cost:"$700"});
+ let instance3 = new parrot({parrot_color:"Red",parrot_weight:"65p",parrot_cost:"$700"});
   
   instance3.save().then( function(err,doc) {
   if(err) return console.error(err);
