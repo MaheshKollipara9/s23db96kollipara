@@ -4,12 +4,29 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+require('dotenv').config();
+const connectionString =
+process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString,
+{useNewUrlParser: true,
+useUnifiedTopology: true});
+
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connectionerror:'));
+db.once("open", function(){
+console.log("Connection to DB succeeded")});
+
+var parrot = require("./models/parrot");
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var parrotRouter = require('./routes/parrot');
 var boardRouter = require('./routes/board');
 var selectorRouter = require('./routes/selector');
+var resourceRouter = require('./rutes/resource');
 
 var app = express();
 
@@ -29,6 +46,34 @@ app.use('/users', usersRouter);
 app.use('/parrot',parrotRouter);
 app.use('/board',boardRouter);
 app.use('/selector',selectorRouter);
+app.use('/resource',resourceRouter);
+
+async function recreateDB(){
+  // Delete everything
+  await parrot.deleteMany();
+  let instance1 = new parrot({parrot_color:"Blue",parrot_weight:"44p",parrot_cost:"$100"});
+  
+  instance1.save().then( function(err,doc) {
+  if(err) return console.error(err);
+  console.log("First object saved")
+  });
+ 
+ let instance2 = new parrot({parrot_color:"Green",parrot_weight:"30p",parrot_cost:"$150"});
+  
+  instance2.save().then( function(err,doc) {
+  if(err) return console.error(err);
+  console.log("Second object saved")
+  });
+ 
+ let instance3 = new parrot({parrot_color:"Red",parrot_length:"65p",parrot_cost:"$700"});
+  
+  instance3.save().then( function(err,doc) {
+  if(err) return console.error(err);
+  console.log("Third object saved")
+  });
+}
+ let reseed = true;
+ if (reseed) { recreateDB();}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
