@@ -2,10 +2,10 @@ extends layout
 
 block content
   h1= title
-  - let results = [{parrot_color:"Blue",parrot_weight:"44p",parrot_cost:"$100"},{parrot_color:"Green",parrot_weight:"30p",parrot_cost:"$150"},{parrot_color:"Red",parrot_weight:"65p",parrot_cost:"$700"}]
+  - let parrot = results
   div(class="container-fluid")
     div(class="row")
-      each item,index in results
+      each item,index in parrot
         div(class="col-sm-2",onClick=`buy(${index})`)
           p Color is #{item.parrot_color}
           p Weight is #{item.parrot_weight}
