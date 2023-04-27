@@ -2,18 +2,19 @@ extends layout
 
 block content
   h1= title
-  - let parrot = results
+  -let items = results
+   button.btn( class="btn-success ml-1", onclick= `dispatch(\"/kite/create?\")`) Create
   div(class="container-fluid")
-    div(class="row")
-      each item,index in parrot
-        div(class="col-sm-2",onClick=`buy(${index})`)
-          p Color is #{item.parrot_color}
-          p Weight is #{item.parrot_weight}
-          p Cost is #{item.parrot_cost}
+   div(class="row m-1")
+    each item in items
+     - let destination = `dispatch(\"/parrot/update?id=${item._id}\")`
+     div(class="row-sm-2", class="m-1") Item #{item.parrot_color}(#{item.parrot_weight}) is #{item.parrot_cost}
+      button.btn( class="btn-primary ml-1", onclick= destination) Update
+      button.btn( class="btn-warning ml-1", onclick= `dispatch(\"/kite/detail?id=${item._id}\")`) Detail
+      button.btn( class="btn-danger ml-1", onclick= `dispatch(\"/kite/delete?id=${item._id}\")`) Delete
 
-  //- Bonus Logic
   script.
-    function buy(itr) {
-      itr = itr+1;
-      alert(`You Purchased Item ${itr}`);
-    }
+   function dispatch(path){
+     window.location.href=path
+   }
+   

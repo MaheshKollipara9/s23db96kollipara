@@ -1,0 +1,23 @@
+extends layout
+block content
+ h1= title
+ if (toShow == null)
+  h2 No instance to detail
+ else
+  - let parrotid = toShow._id
+  - let parrot_color = toShow.parrot_color
+  - let parrot_weight = toShow.parrot_weight
+  - let parrot_cost = toShow.parrot_cost
+  div
+   div.row
+    div(class='parrotAttr mr-3') parrot ID is:
+    div #{parrotid}
+   div.row
+    div(class='parrotAttr mr-3') parrot Color is:
+    div #{parrot_color}
+   div.row
+    div(class='parrotAttr mr-3') parrot Weight is:
+    div #{parrot_weight}
+   div.row
+    div(class='parrotAttr mr-3') parrot Cost is:
+    div #{parrot_cost}

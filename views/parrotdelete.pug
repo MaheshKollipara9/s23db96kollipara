@@ -1,0 +1,49 @@
+extends layout
+block content
+ h1= title
+ if (toShow == null)
+  h2 No instance to delete
+ else
+  - let parrotid = toShow._id
+  - let parrot_color = toShow.parrot_color
+  - let parrot_weight = toShow.parrot_weight
+  - let parrot_cost = toShow.parrot_cost
+  - let actionid = "/resource/parrot/" + parrotid
+  script let actionid = "#{actionid}"
+  div
+   div.row
+    div(class='parrotAttr mr-3') parrot ID is:
+    div #{parrotid}
+   div.row
+    div(class='parrotAttr mr-3') parrot Color is:
+    div #{parrot_color}
+   div.row
+    div(class='parrotAttr mr-3') parrot Weight is:
+    div #{parrot_weight}
+   div.row
+    div(class='parrotAttr mr-3') parrot Cost is:
+    div #{parrot_cost}
+  button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+  button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+ script.
+  function cancel() {
+  // Go back to the home page for the parrot collection
+  window.location.href='/parrot'
+  }
+ script.
+  function deleteOnid() {
+   console.log("starting delete")
+   // delete first
+   fetch(actionid, {
+    method: 'DELETE' // Don't need a body for the delete
+   }).then((resp) => {
+    return resp.json(); // or resp.text() or whatever the server sends
+   }).then((body) => {
+    alert("Delete succeded")
+   window.location.href='/parrot'
+   // TODO handle body
+   }).catch((error) => {
+   // TODO handle error
+    alert("Delete failed " + error )
+   });
+  }
